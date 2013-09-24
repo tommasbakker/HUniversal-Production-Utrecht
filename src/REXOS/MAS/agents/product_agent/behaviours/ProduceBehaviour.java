@@ -124,6 +124,7 @@ public class ProduceBehaviour extends agents.shared_behaviours.ReceiveBehaviour 
 	 */
 	@Override
 	public void handle(ACLMessage m) {
+		Logger.logAclMessage(m, 'r');
 		try {
 			String conversationId = m.getConversationId();
 			ProductionStep prodStep = _conversationIdToProductionStep

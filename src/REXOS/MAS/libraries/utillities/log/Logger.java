@@ -155,43 +155,6 @@ public class Logger {
     	}
 	}
 	
-	
-	public static void logAclMessage(ACLMessage msg, boolean debug) {
-		String msgsFilePath = System.getenv(PATH_ENVIRONMENT_VARIABLE);
-        
-    	try 
-    	{ 
-    		File dir = new File (msgsFilePath);
-    		if (!dir.exists())
-    		{
-    			dir.mkdir();
-    		}
-    		
-    		File file = new File(dir, msg.getConversationId() + ".txt");
-    		
-    		//if file doesnt exists, then create it
-    		if(!file.exists())
-    		{
-    			file.createNewFile();
-    		}    
-    		
-    		FileWriter fileWriter = new FileWriter(file, true);
-	        BufferedWriter bufferWriter = new BufferedWriter(fileWriter);
-	        
-	        bufferWriter.write("Msg from ( sender ): " + msg.getSender().getLocalName() + " -> " + "to ( receiver ): " + ((AID)msg.getAllReceiver().next()).getLocalName() +  "\n" +
-	        		"Performative: " + ACLMessage.getPerformative(msg.getPerformative()) + "\n" +
-	        		"Ontology: " + msg.getOntology()  + "\n\n");
-	        
-	        bufferWriter.close();
-	        
-    	}
-    	catch(IOException e)
-    	{
-    		e.printStackTrace();
-    	}
-	}
-	
-	
 	public static void log(LogLevel level, String msg,  Throwable throwable) {
 		printToOut(level, msg);
 		printToOut(level, throwable.getStackTrace().toString());

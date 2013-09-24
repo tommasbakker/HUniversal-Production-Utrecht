@@ -49,6 +49,7 @@ package agents.hardware_agent.behaviours;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import libraries.utillities.log.Logger;
 import agents.hardware_agent.HardwareAgent;
 import agents.shared_behaviours.ReceiveBehaviour;
 
@@ -94,6 +95,7 @@ public class ServiceAgentDied extends ReceiveBehaviour {
 	 */
 	@Override
 	public void handle(ACLMessage message) {
+		Logger.logAclMessage(message, 'r');
 		//Logger.log("%s received message from %s (%s)%n",
 				//myAgent.getLocalName(), message.getSender().getLocalName(),
 				//message.getOntology());

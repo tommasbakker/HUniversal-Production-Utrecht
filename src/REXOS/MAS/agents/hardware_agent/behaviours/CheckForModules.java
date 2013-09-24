@@ -49,6 +49,7 @@ import libraries.knowledgedb_client.KnowledgeDBClient;
 import libraries.knowledgedb_client.KnowledgeException;
 import libraries.knowledgedb_client.Queries;
 import libraries.knowledgedb_client.Row;
+import libraries.utillities.log.Logger;
 import agents.hardware_agent.HardwareAgent;
 import agents.shared_behaviours.ReceiveBehaviour;
 
@@ -119,6 +120,7 @@ public class CheckForModules extends ReceiveBehaviour {
 	 */
 	@Override
 	public void handle(ACLMessage message) {
+		Logger.logAclMessage(message, 'r');
 		boolean modulesPresent = true;
 		try {
 			// check if modules are present

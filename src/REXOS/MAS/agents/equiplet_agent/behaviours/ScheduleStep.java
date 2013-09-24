@@ -114,6 +114,7 @@ public class ScheduleStep extends ReceiveBehaviour {
 	@Override
 	public void handle(ACLMessage message) 
 	{
+		Logger.logAclMessage(message, 'r');
 		try 
 		{
 			// Gets the timeslot out of the message content.

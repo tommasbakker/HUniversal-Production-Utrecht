@@ -113,6 +113,7 @@ public class GetPartsInfoResponse extends ReceiveBehaviour {
 	@Override
 	public void handle(ACLMessage message) {
 		if(message != null) {
+			Logger.logAclMessage(message, 'r');
 			try {
 				BlackboardClient productStepBBClient = agent.getProductStepBBClient();
 				BlackboardClient serviceStepBBClient = agent.getServiceStepBBClient();

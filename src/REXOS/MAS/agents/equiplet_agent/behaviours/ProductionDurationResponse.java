@@ -71,6 +71,7 @@ public class ProductionDurationResponse extends ReceiveOnceBehaviour {
 	 */
 	@Override
 	public void handle(ACLMessage message) {
+		Logger.logAclMessage(message, 'r');
 		if(message != null) {
 			//Logger.log("%s received message from %s%n", myAgent.getLocalName(), message.getSender().getLocalName(),
 					//message.getOntology());

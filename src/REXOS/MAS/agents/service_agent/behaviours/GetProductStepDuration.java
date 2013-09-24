@@ -98,6 +98,7 @@ public class GetProductStepDuration extends ReceiveBehaviour {
 	 */
 	@Override
 	public void handle(ACLMessage message) {
+		Logger.logAclMessage(message, 'r');
 		try {
 			ObjectId productStepId = (ObjectId) message.getContentObject();
 			ProductStep productStep =

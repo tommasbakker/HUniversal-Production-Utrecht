@@ -84,6 +84,7 @@ public class CheckForModulesResponse extends ReceiveBehaviour {
 	@Override
 	public void handle(ACLMessage message) {
 		if(message != null) {
+			Logger.logAclMessage(message, 'r');
 			ACLMessage reply = message.createReply();
 			reply.clearAllReceiver();
 			reply.addReceiver(agent.getEquipletAgentAID());

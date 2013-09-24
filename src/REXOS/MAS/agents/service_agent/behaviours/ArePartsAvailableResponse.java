@@ -98,6 +98,7 @@ public class ArePartsAvailableResponse extends ReceiveBehaviour {
 	@Override
 	public void handle(ACLMessage message) {
 		if(message != null) {
+			Logger.logAclMessage(message, 'r');
 			try {
 				Logger.log(LogLevel.DEBUG, "%s ArePartsAvailableResponse%n", agent.getLocalName());
 				

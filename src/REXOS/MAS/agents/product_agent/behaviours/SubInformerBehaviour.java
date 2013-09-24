@@ -83,6 +83,7 @@ public class SubInformerBehaviour extends agents.shared_behaviours.ReceiveBehavi
 		
 		try {
 			if (message != null) {
+				Logger.logAclMessage(message, 'r');
 				switch (_currentState) {
 				case 0:
 					if (message.getPerformative() == ACLMessage.CONFIRM) 

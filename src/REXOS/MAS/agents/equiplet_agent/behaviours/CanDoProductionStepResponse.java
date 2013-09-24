@@ -103,6 +103,7 @@ public class CanDoProductionStepResponse extends ReceiveBehaviour {
 	 */
 	@Override
 	public void handle(ACLMessage message) {
+		Logger.logAclMessage(message, 'r');
 		if (message != null) {
 			//Logger.log("%s received message from %s (%s)%n",
 					//myAgent.getLocalName(), message.getSender().getLocalName(),

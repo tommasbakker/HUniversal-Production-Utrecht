@@ -88,6 +88,7 @@ public class ArePartsAvailableInTime extends ReceiveOnceBehaviour {
 	@Override
 	public void handle(ACLMessage message) {
 		if (message != null) {
+			Logger.logAclMessage(message, 'r');
 			try {
 				Logger.log(LogLevel.DEBUG, "%s ArePartsAvailableInTime%n",
 						myAgent.getLocalName());

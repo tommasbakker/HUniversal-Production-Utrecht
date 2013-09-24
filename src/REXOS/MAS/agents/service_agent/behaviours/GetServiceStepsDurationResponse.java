@@ -98,6 +98,7 @@ public class GetServiceStepsDurationResponse extends ReceiveBehaviour {
 	@Override
 	public void handle(ACLMessage message) {
 		if(message != null) {
+			Logger.logAclMessage(message, 'r');
 			try {
 				BlackboardClient client = agent.getServiceStepBBClient();
 				ServiceStep serviceStep = new ServiceStep();
