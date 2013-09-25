@@ -30,6 +30,8 @@
  **/
 package agents.logistics_agent.behaviours;
 
+import java.rmi.server.UID;
+
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -97,6 +99,8 @@ public class ArePartsAvailableInTime extends ReceiveOnceBehaviour {
 				ACLMessage reply = message.createReply();
 				reply.setOntology("ArePartsAvailableInTimeResponse");
 				reply.setPerformative(ACLMessage.CONFIRM);
+				reply.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(reply, 's');
 				myAgent.send(reply);
 
 				myAgent.addBehaviour(new GetPartsInfo(myAgent, message

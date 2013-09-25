@@ -41,6 +41,7 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 
 import libraries.blackboard_client.GeneralMongoException;
 import libraries.blackboard_client.InvalidDBNamespaceException;
@@ -113,6 +114,8 @@ public class ScheduleStep extends ReceiveBehaviour {
 				sendMsg.addReceiver(agent.getLogisticsAID());
 				sendMsg.setOntology("ArePartsAvailable");
 				sendMsg.setContentObject(productStep);
+				sendMsg.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(sendMsg, 's');
 				agent.send(sendMsg);
 			} catch(InvalidDBNamespaceException | GeneralMongoException | UnreadableException | IOException e) {
 				Logger.log(LogLevel.ERROR, e);

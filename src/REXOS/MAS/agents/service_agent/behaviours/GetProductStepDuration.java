@@ -40,6 +40,7 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 
 import libraries.blackboard_client.BlackboardClient;
 import libraries.blackboard_client.GeneralMongoException;
@@ -130,6 +131,8 @@ public class GetProductStepDuration extends ReceiveBehaviour {
 			askMessage.setOntology("GetServiceStepDuration");
 			askMessage.setConversationId(message.getConversationId());
 			askMessage.setContentObject(serviceStepId);
+			askMessage.addUserDefinedParameter("message-id", new UID().toString());
+			Logger.logAclMessage(askMessage, 's');
 			agent.send(askMessage);
 		} catch(UnreadableException | InvalidDBNamespaceException | GeneralMongoException | IOException e) {
 			Logger.log(LogLevel.ERROR, e);

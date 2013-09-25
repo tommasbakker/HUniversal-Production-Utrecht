@@ -34,6 +34,8 @@
  **/
 package agents.service_agent.behaviours;
 
+import java.rmi.server.UID;
+
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import libraries.utillities.log.Logger;
@@ -77,6 +79,8 @@ public class OtherAgentDied extends ReceiveBehaviour {
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 			msg.addReceiver(agent.getHardwareAgentAID());
 			msg.setOntology("ServiceAgentDied");
+			msg.addUserDefinedParameter("message-id", new UID().toString());
+			Logger.logAclMessage(msg, 's');
 			agent.send(msg);
 		} else {
 			agent.doDelete();

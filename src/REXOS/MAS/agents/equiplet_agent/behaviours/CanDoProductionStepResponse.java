@@ -29,6 +29,8 @@
  **/
 package agents.equiplet_agent.behaviours;
 
+import java.rmi.server.UID;
+
 import jade.core.AID;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
@@ -129,6 +131,8 @@ public class CanDoProductionStepResponse extends ReceiveBehaviour {
 					equipletBBClient.removeDocuments(new BasicDBObject("_id",
 							productStepEntryId));
 				}
+				responseMessage.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(responseMessage, 's');				
 				myAgent.send(responseMessage);
 			} catch (GeneralMongoException | InvalidDBNamespaceException e) {
 				Logger.log(LogLevel.ERROR, e);

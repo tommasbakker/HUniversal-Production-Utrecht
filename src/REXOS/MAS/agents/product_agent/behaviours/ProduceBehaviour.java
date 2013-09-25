@@ -47,6 +47,7 @@ import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
+import java.rmi.server.UID;
 import java.util.HashMap;
 
 import libraries.utillities.log.LogLevel;
@@ -140,6 +141,8 @@ public class ProduceBehaviour extends agents.shared_behaviours.ReceiveBehaviour 
 					 */
 					ACLMessage reply = m.createReply();
 					reply.setOntology("StartStep");
+					reply.addUserDefinedParameter("message-id", new UID().toString());
+					Logger.logAclMessage(reply, 's');
 					myAgent.send(reply);
 					break;
 				case "StatusUpdate":

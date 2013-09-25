@@ -38,6 +38,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 
 import libraries.utillities.log.LogLevel;
 import libraries.utillities.log.Logger;
@@ -103,6 +104,8 @@ public class GetProductionDuration extends ReceiveBehaviour {
 				ACLMessage responseMessage = message.createReply();
 				responseMessage.setPerformative(ACLMessage.DISCONFIRM);
 				responseMessage.setOntology("ConversationIdUnknown");
+				responseMessage.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(responseMessage, 's');
 				myAgent.send(responseMessage);
 			} else {
 				ProductionDurationResponse productionDurationResponseBehaviour =
@@ -114,6 +117,8 @@ public class GetProductionDuration extends ReceiveBehaviour {
 				responseMessage.setConversationId(message.getConversationId());
 				responseMessage.setContentObject(productStepId);
 				responseMessage.setOntology("GetProductionStepDuration");
+				responseMessage.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(responseMessage, 's');
 				myAgent.send(responseMessage);
 			}
 		} catch(IOException e) {

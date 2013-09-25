@@ -35,6 +35,7 @@ package agents.equiplet_agent;
 
 import jade.lang.acl.ACLMessage;
 
+import java.rmi.server.UID;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -231,6 +232,8 @@ public class NextProductStepTimer extends Timer {
 				 test.setConversationId(conversationId);
 				 test.addReceiver(equipletAgent.getAID());
 				 test.setOntology("StartStep");
+				 test.addUserDefinedParameter("message-id", new UID().toString());
+				 Logger.logAclMessage(test, 's');
 				 equipletAgent.send(test);
 			} catch(InvalidDBNamespaceException | GeneralMongoException e) {
 				Logger.log(LogLevel.ERROR, e);

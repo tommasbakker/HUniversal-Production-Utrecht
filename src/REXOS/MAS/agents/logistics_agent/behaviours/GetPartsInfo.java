@@ -40,6 +40,7 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 import java.util.HashMap;
 
 import libraries.knowledgedb_client.KeyNotFoundException;
@@ -115,6 +116,8 @@ public class GetPartsInfo extends ReceiveOnceBehaviour {
 				reply.setPerformative(ACLMessage.INFORM);
 				reply.setOntology("GetPartsInfoResponse");
 				reply.setContentObject(partParameters);
+				reply.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(reply, 's');
 				myAgent.send(reply);
 			} catch (UnreadableException | IOException | KnowledgeException | KeyNotFoundException e) {
 				Logger.log(LogLevel.ERROR, e);

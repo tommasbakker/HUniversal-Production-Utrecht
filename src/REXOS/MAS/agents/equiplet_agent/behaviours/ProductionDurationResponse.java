@@ -5,6 +5,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 
 import libraries.blackboard_client.BlackboardClient;
 import libraries.blackboard_client.GeneralMongoException;
@@ -92,6 +93,8 @@ public class ProductionDurationResponse extends ReceiveOnceBehaviour {
 				responseMessage.setOntology("ProductionDuration");
 				responseMessage.setConversationId(message.getConversationId());
 				responseMessage.setContentObject(new Long(schedule.getDuration()));
+				responseMessage.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(responseMessage, 's');
 				equipletAgent.send(responseMessage);
 				Logger.log(LogLevel.DEBUG, "sending message: %s%n", responseMessage.getOntology());
 			} catch(IOException | InvalidDBNamespaceException | GeneralMongoException e) {

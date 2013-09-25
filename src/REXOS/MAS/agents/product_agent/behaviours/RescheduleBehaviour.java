@@ -17,8 +17,10 @@ import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
 
+import java.rmi.server.UID;
 import java.util.ArrayList;
 
+import libraries.utillities.log.Logger;
 import agents.data.BehaviourStatus;
 import agents.data.Product;
 import agents.data.Production;
@@ -58,6 +60,8 @@ public class RescheduleBehaviour extends Behaviour {
 				message.addReceiver(step.getUsedEquiplet());
 				message.setOntology("AbortStep");
 				message.setConversationId(step.getConversationId());
+				message.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(message, 's');
 				myAgent.send(message);
 			}
 		}	

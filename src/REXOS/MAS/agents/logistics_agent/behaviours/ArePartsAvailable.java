@@ -30,6 +30,8 @@
  **/
 package agents.logistics_agent.behaviours;
 
+import java.rmi.server.UID;
+
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -74,6 +76,8 @@ public class ArePartsAvailable extends ReceiveBehaviour {
 			reply.setOntology("ArePartsAvailableResponse");
 			//TODO (out of scope) determine actual part availability 
 			reply.setPerformative(ACLMessage.CONFIRM);
+			reply.addUserDefinedParameter("message-id", new UID().toString());
+			Logger.logAclMessage(reply, 's');
 			myAgent.send(reply);
 
 			myAgent.addBehaviour(new ArePartsAvailableInTime(myAgent, message.getConversationId()));

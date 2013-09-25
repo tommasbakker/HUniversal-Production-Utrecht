@@ -7,6 +7,7 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 
 import libraries.utillities.log.LogLevel;
 import libraries.utillities.log.Logger;
@@ -68,6 +69,8 @@ public class SubInformerBehaviour extends agents.shared_behaviours.ReceiveBehavi
 			message.addReceiver(_targetEquiplet);
 			message.setOntology("CanPerformStep");
 			message.setContentObject(_productionStep);
+			message.addUserDefinedParameter("message-id", new UID().toString());
+			Logger.logAclMessage(message, 's');
 			myAgent.send(message);
 		} catch (IOException e) {
 			Logger.log(LogLevel.ERROR, e);
@@ -94,6 +97,8 @@ public class SubInformerBehaviour extends agents.shared_behaviours.ReceiveBehavi
 						newMessage.addReceiver(_targetEquiplet);
 						newMessage.setOntology("GetProductionDuration");
 						newMessage.setContentObject(_productionStep);
+						newMessage.addUserDefinedParameter("message-id", new UID().toString());
+						Logger.logAclMessage(newMessage, 's');
 						myAgent.send(newMessage);
 						_currentState++;
 					} 

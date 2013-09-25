@@ -40,6 +40,7 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -180,6 +181,8 @@ public class GetPartsInfoResponse extends ReceiveBehaviour {
 				informMsg.setConversationId(message.getConversationId());
 				informMsg.addReceiver(agent.getHardwareAgentAID());
 				informMsg.setContentObject(parameterizedSteps[0].getId());
+				informMsg.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(informMsg, 's');
 				agent.send(informMsg);
 				productStepBBClient.updateDocuments(new BasicDBObject("_id", productStepId), new BasicDBObject("$set",
 						new BasicDBObject("status", StepStatusCode.PLANNED.name())));

@@ -47,6 +47,8 @@
 
 package agents.equiplet_agent.behaviours;
 
+import java.rmi.server.UID;
+
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import libraries.blackboard_client.GeneralMongoException;
@@ -130,6 +132,8 @@ public class AbortStep extends ReceiveBehaviour {
 				} else {
 					ACLMessage reply = message.createReply();
 					reply.setPerformative(ACLMessage.FAILURE);
+					reply.addUserDefinedParameter("message-id", new UID().toString());
+					Logger.logAclMessage(reply, 's');
 					myAgent.send(reply);
 				}
 			} catch(InvalidDBNamespaceException | GeneralMongoException e) {

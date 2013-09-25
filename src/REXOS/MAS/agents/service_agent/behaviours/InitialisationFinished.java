@@ -33,6 +33,8 @@
  **/
 package agents.service_agent.behaviours;
 
+import java.rmi.server.UID;
+
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import libraries.utillities.log.LogLevel;
@@ -93,6 +95,8 @@ public class InitialisationFinished extends ReceiveBehaviour {
 			ACLMessage response = new ACLMessage(ACLMessage.CONFIRM);
 			response.addReceiver(serviceAgent.getEquipletAgentAID());
 			response.setOntology("InitialisationFinished");
+			response.addUserDefinedParameter("message-id", new UID().toString());
+			Logger.logAclMessage(response, 's');
 			serviceAgent.send(response);
 		} else {
 			Logger.log(LogLevel.DEBUG, serviceAgent.getName() + " - InitialisationFinished timeout!");

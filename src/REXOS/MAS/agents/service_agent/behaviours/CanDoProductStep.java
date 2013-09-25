@@ -40,6 +40,7 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 import java.util.ArrayList;
 
 import libraries.blackboard_client.GeneralMongoException;
@@ -128,11 +129,15 @@ public class CanDoProductStep extends ReceiveBehaviour {
 				msg.addReceiver(agent.getHardwareAgentAID());
 				msg.setOntology("CheckForModules");
 				msg.setContentObject(chosenService.getModuleGroupIds(stepType, parameters));
+				msg.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(msg, 's');
 				agent.send(msg);
 			} else {
 				ACLMessage reply = message.createReply();
 				reply.setPerformative(ACLMessage.DISCONFIRM);
 				reply.setOntology("CanDoProductionStepResponse");
+				reply.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(reply, 's');
 				getAgent().send(reply);
 				Logger.log(LogLevel.DEBUG, "%s sending step availability (%b)%n", getAgent().getLocalName(),
 						reply.getPerformative() == ACLMessage.CONFIRM);

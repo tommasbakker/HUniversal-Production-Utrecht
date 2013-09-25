@@ -51,6 +51,7 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 
 import libraries.blackboard_client.BlackboardClient;
 import libraries.blackboard_client.GeneralMongoException;
@@ -152,18 +153,26 @@ public class CanPerformStep extends ReceiveBehaviour {
 			responseMessage.addReceiver(equipletAgent.getServiceAgent());
 			responseMessage.setOntology("CanDoProductionStep");
 			responseMessage.setContentObject(productStepEntryId);
+			
+			responseMessage.addUserDefinedParameter("message-id", new UID().toString());
+			Logger.logAclMessage(responseMessage, 's');
+			
 			equipletAgent.send(responseMessage);
 		} catch(IOException | InvalidDBNamespaceException | GeneralMongoException | NullPointerException e) {
 			Logger.log(LogLevel.ERROR, e);
 			ACLMessage reply = message.createReply();
 			reply.setPerformative(ACLMessage.FAILURE);
 			reply.setContent("Failed to process the step");
+			reply.addUserDefinedParameter("message-id", new UID().toString());
+			Logger.logAclMessage(reply, 's');
 			equipletAgent.send(reply);
 		} catch(UnreadableException e) {
 			Logger.log(LogLevel.ERROR, e);
 			ACLMessage reply = message.createReply();
 			reply.setPerformative(ACLMessage.FAILURE);
 			reply.setContent("No step given");
+			reply.addUserDefinedParameter("message-id", new UID().toString());
+			Logger.logAclMessage(reply, 's');
 			equipletAgent.send(reply);
 		}
 	}

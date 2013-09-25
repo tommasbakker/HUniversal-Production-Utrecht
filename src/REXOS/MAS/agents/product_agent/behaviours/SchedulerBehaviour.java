@@ -47,6 +47,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -323,6 +324,8 @@ public class SchedulerBehaviour extends Behaviour {
 		msg.setOntology("ScheduleStep");
 		msg.setContentObject(freetimeslotEq.getStartTime());
 		msg.addReceiver(freetimeslotEq.getEquipletName());
+		msg.addUserDefinedParameter("message-id", new UID().toString());
+		Logger.logAclMessage(msg, 's');
 		myAgent.send(msg);
 
 			ACLMessage returnMsg = myAgent.blockingReceive(MessageTemplate

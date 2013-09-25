@@ -39,6 +39,7 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 import java.util.List;
 
 import libraries.blackboard_client.BlackboardClient;
@@ -185,6 +186,8 @@ public class ScheduleStep extends ReceiveBehaviour {
 				scheduleMessage.setOntology("ScheduleStep");
 				scheduleMessage.setContentObject(productStepId);
 				scheduleMessage.setConversationId(message.getConversationId());
+				scheduleMessage.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(scheduleMessage, 's');
 				equipletAgent.send(scheduleMessage);
 				Logger.log(LogLevel.DEBUG, "You fit in my schedule, msg accepted send.");
 			}
@@ -193,6 +196,8 @@ public class ScheduleStep extends ReceiveBehaviour {
 				Logger.log(LogLevel.ERROR, "ScheduleStep disconfirm");
 				ACLMessage reply = message.createReply();
 				reply.setPerformative(ACLMessage.DISCONFIRM);
+				reply.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(reply, 's');
 				myAgent.send(reply);
 			}
 		}

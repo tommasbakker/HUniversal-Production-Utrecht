@@ -35,6 +35,8 @@
  **/
 package agents.service_agent.behaviours;
 
+import java.rmi.server.UID;
+
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
@@ -124,6 +126,8 @@ public class GetServiceStepsDurationResponse extends ReceiveBehaviour {
 				answer.addReceiver(agent.getEquipletAgentAID());
 				answer.setConversationId(message.getConversationId());
 				answer.setOntology("ProductionDurationResponse");
+				answer.addUserDefinedParameter("message-id", new UID().toString());
+				Logger.logAclMessage(answer, 's');
 				agent.send(answer);
 
 				Logger.log(LogLevel.DEBUG, "%s sending msg (%s)%n", myAgent.getLocalName(), answer.getOntology());

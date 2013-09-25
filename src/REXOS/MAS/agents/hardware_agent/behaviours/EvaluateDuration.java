@@ -53,6 +53,7 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 
 import libraries.blackboard_client.BlackboardClient;
 import libraries.blackboard_client.GeneralMongoException;
@@ -131,6 +132,8 @@ public class EvaluateDuration extends ReceiveBehaviour {
 			reply = message.createReply();
 			reply.setContentObject(serviceStepId);
 			reply.setOntology("GetServiceStepDurationResponse");
+			reply.addUserDefinedParameter("message-id", new UID().toString());
+			Logger.logAclMessage(reply, 's');
 			myAgent.send(reply);
 		} catch(UnreadableException | IOException e) {
 			e.printStackTrace();

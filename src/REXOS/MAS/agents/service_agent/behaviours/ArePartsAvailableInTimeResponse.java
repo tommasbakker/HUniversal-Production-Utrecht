@@ -39,6 +39,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 import java.io.IOException;
+import java.rmi.server.UID;
 
 import libraries.blackboard_client.BlackboardClient;
 import libraries.blackboard_client.GeneralMongoException;
@@ -112,6 +113,8 @@ public class ArePartsAvailableInTimeResponse extends ReceiveBehaviour {
 					sendMsg.setOntology("GetPartsInfo");
 					sendMsg.setPerformative(ACLMessage.QUERY_IF);
 					sendMsg.setContentObject(productStep.getInputParts());
+					sendMsg.addUserDefinedParameter("message-id", new UID().toString());
+					Logger.logAclMessage(sendMsg, 's');
 					agent.send(sendMsg);
 				} else {
 					agent.getProductStepBBClient().updateDocuments(

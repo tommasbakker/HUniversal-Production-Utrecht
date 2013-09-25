@@ -35,6 +35,8 @@
  **/
 package agents.service_agent.behaviours;
 
+import java.rmi.server.UID;
+
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import libraries.utillities.log.LogLevel;
@@ -90,6 +92,8 @@ public class CheckForModulesResponse extends ReceiveBehaviour {
 			reply.addReceiver(agent.getEquipletAgentAID());
 			reply.setPerformative(message.getPerformative());
 			reply.setOntology("CanDoProductionStepResponse");
+			reply.addUserDefinedParameter("message-id", new UID().toString());
+			Logger.logAclMessage(reply, 's');
 			getAgent().send(reply);
 			Logger.log(LogLevel.DEBUG, "%s sending step availability (%b)%n", getAgent().getLocalName(),
 					message.getPerformative() == ACLMessage.CONFIRM);
