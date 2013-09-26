@@ -220,6 +220,9 @@ public class ServiceAgent extends Agent implements BlackboardSubscriber {
 		addBehaviour(new ArePartsAvailableResponse(this));
 		addBehaviour(new ArePartsAvailableInTimeResponse(this));
 		addBehaviour(new GetPartsInfoResponse(this));
+		
+
+		Logger.log(LogLevel.INFORMATION, this.getAID().getLocalName() +" finished initialization");
 	}
 
 	/**

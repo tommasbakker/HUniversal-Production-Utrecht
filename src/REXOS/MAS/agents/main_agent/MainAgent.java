@@ -112,8 +112,8 @@ public class MainAgent extends Agent {
 			};
 			
 			getContainerController().createNewAgent("EQ1", "agents.equiplet_agent.EquipletAgent", ar).start();
-
-			Logger.log(LogLevel.DEBUG, "Started equiplet AGNT");
+			getContainerController().createNewAgent("EQ2", "agents.equiplet_agent.EquipletAgent", ar).start();
+			
 
 			ArrayList<ProductionStep> stepList = new ArrayList<>();
 

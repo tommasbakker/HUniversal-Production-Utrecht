@@ -182,7 +182,6 @@ public class KnowledgeDBClient {
 			for (int i = 0; i < parameters.length; i++) {
 			    statement.setString(i + 1, parameters[i].toString());
 			}
-
 			result = statement.executeQuery();
 	        rows = createRowArrayFromResultSet(result);
 		} catch (SQLException ex) {

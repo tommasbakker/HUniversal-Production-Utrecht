@@ -65,7 +65,7 @@ public class Logger {
 	 * @var int logleveltreshhold
 	 * treshhold for showing log msg
 	 **/
-	public static final int loglevelThreshold = LogLevel.INFORMATION.getLevel();
+	public static final int loglevelThreshold = LogLevel.DEBUG.getLevel();
 	
 	static {
 		String msgsFilePath = System.getenv(PATH_ENVIRONMENT_VARIABLE);

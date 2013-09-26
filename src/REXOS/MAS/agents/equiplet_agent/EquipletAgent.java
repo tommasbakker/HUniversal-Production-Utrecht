@@ -331,6 +331,9 @@ public class EquipletAgent extends Agent implements BlackboardSubscriber {
 
 		// starts the behaviour for receiving message initialization finished.
 		addBehaviour(new AbortStep(this));
+		
+
+		Logger.log(LogLevel.INFORMATION, this.getAID().getLocalName() +" finished initialization");
 	}
 
 	/**

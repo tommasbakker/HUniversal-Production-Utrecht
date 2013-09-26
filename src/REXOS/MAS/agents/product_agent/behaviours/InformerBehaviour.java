@@ -133,6 +133,7 @@ public class InformerBehaviour extends Behaviour {
 					HashMap<AID, Long> equipletList = pem
 							.getEquipletsForProductionStep(productionStep
 									.getId());
+					Logger.log(LogLevel.DEBUG, "Amount of EQ in PAsteps: " + equipletList.size());
 					if (equipletList != null && equipletList.size() > 0) {
 						for (AID aid : equipletList.keySet()) {
 							String convId = _productAgent.generateCID();

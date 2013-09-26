@@ -269,6 +269,8 @@ public class HardwareAgent extends Agent implements BlackboardSubscriber, Module
 			Logger.log(LogLevel.ERROR, e1);
 			doDelete();
 		}
+		
+		Logger.log(LogLevel.INFORMATION, this.getAID().getLocalName() +" finished initialization");
 	}
 
 	/**

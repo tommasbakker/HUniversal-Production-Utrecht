@@ -126,16 +126,17 @@ public class PlannerBehaviour extends Behaviour {
 							.start("capabilities").is(PA_capability).get();
 					List<DBObject> equipletDirectory = bbc
 							.findDocuments(equipletCapabilityQuery);
+					Logger.log(LogLevel.DEBUG, "PAstep: " + PA_id);
 					for (DBObject DBobj : equipletDirectory) {
 						DBObject aid = (DBObject) DBobj.get("db");
 						String name = aid.get("name").toString();
+						Logger.log(LogLevel.DEBUG, "equip for PA: " + name);
 						prodEQmap.addEquipletToProductionStep(PA_id, new AID(
 								name, AID.ISLOCALNAME));
 					}
 				} else {
 				}
 			}
-
 			production.setProductionEquipletMapping(prodEQmap);
 			product.setProduction(production);
 			this._productAgent.setProduct(product);

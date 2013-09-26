@@ -49,15 +49,26 @@ public class PrintableACLMessage {
 	public int contentSize = 0;
 
 	public PrintableACLMessage(ACLMessage msg, Timestamp timestamp, String sentOrReceived){
-		this.messageID = msg.getUserDefinedParameter("message-id");
-		this.timestamp = timestamp.getTime();
-		this.sentOrReceived = sentOrReceived;
-		this.sender = msg.getSender().getLocalName();
-		this.receiver = ((AID)msg.getAllReceiver().next()).getLocalName();
-		this.performative = msg.getPerformative();
-		this.ontology = msg.getOntology();
-		if(msg.getByteSequenceContent() != null) {
-			contentSize = msg.getByteSequenceContent().length;
+		try{
+			this.messageID = msg.getUserDefinedParameter("message-id");
+			this.timestamp = timestamp.getTime();
+			this.sentOrReceived = sentOrReceived;
+			if(msg.getSender() != null){
+				this.sender = msg.getSender().getLocalName();
+			}
+			
+			if (msg.getAllReceiver().hasNext()){
+				this.receiver = ((AID)msg.getAllReceiver().next()).getLocalName();
+			}
+			this.performative = msg.getPerformative();
+			this.ontology = msg.getOntology();
+			if(msg.getByteSequenceContent() != null) {
+				contentSize = msg.getByteSequenceContent().length;
+			}
+			// we dont want to crash the program because of an incomplete parsed message
+			// so catch all the exceptions
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	

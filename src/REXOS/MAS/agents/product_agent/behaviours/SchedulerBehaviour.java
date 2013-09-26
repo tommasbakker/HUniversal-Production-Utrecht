@@ -196,6 +196,8 @@ public class SchedulerBehaviour extends Behaviour {
 		try {
 			this._prodStep = productionstep;
 
+			
+			Logger.log(LogLevel.DEBUG, "We got #" + equipletList.size() + " EQ to proc");
 		List<AID> equipletlist = new ArrayList<AID>(equipletList);
 
 		BlackboardClient bbc = new BlackboardClient(
