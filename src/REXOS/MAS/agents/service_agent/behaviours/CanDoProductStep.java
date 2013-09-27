@@ -48,6 +48,7 @@ import libraries.blackboard_client.InvalidDBNamespaceException;
 import libraries.utillities.log.LogLevel;
 import libraries.utillities.log.Logger;
 
+import org.apache.commons.lang.time.StopWatch;
 import org.bson.types.ObjectId;
 
 import agents.data.ProductStep;
@@ -101,13 +102,15 @@ public class CanDoProductStep extends ReceiveBehaviour {
 	public void handle(ACLMessage message) {
 		Logger.logAclMessage(message, 'r');
 		try {
+			StopWatch st1 = new StopWatch();
+			st1.start();
 			ObjectId productStepId = (ObjectId) message.getContentObject();
 			ProductStep productStep =
 					new ProductStep((BasicDBObject) agent.getProductStepBBClient().findDocumentById(productStepId));
 			int stepType = productStep.getType();
 			BasicDBObject parameters = productStep.getParameters();
 
-			//Logger.log("%s got message CanDoProductStep for step type %s%n", agent.getLocalName(), stepType);
+			Logger.log(LogLevel.DEBUG, "%s got message CanDoProductStep for step type %s%n", agent.getLocalName(), stepType);
 
 			Service[] services = agent.getServiceFactory().getServicesForStep(stepType);
 
@@ -117,7 +120,9 @@ public class CanDoProductStep extends ReceiveBehaviour {
 					possibleServices.add(service);
 				}
 			}
-
+			
+			st1.stop();
+			Logger.log(LogLevel.DEBUG, "We know the possible services now after:" + st1.getTime());
 			if(!possibleServices.isEmpty()) {
 				// TODO (out of scope)implement algorithm to intelligently choose a service here
 				Service chosenService = possibleServices.get(0);

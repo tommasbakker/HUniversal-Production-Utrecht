@@ -25,7 +25,7 @@ public class SubInformerBehaviour extends agents.shared_behaviours.ReceiveBehavi
 	private InformerBehaviour _parentBehaviour;
 	private String _conversationId;
 
-	private static int SUBINFORMER_TIMEOUT = 10000;
+	private static int SUBINFORMER_TIMEOUT = 100000;
 
 	private int _currentState = 0;
 
@@ -72,6 +72,7 @@ public class SubInformerBehaviour extends agents.shared_behaviours.ReceiveBehavi
 			message.addUserDefinedParameter("message-id", new UID().toString());
 			Logger.logAclMessage(message, 's');
 			myAgent.send(message);
+			Logger.log(LogLevel.DEBUG, "Sending message to EQ-CanPerformStep: " + super.getTimeout());
 		} catch (IOException e) {
 			Logger.log(LogLevel.ERROR, e);
 		}
@@ -89,6 +90,7 @@ public class SubInformerBehaviour extends agents.shared_behaviours.ReceiveBehavi
 				Logger.logAclMessage(message, 'r');
 				switch (_currentState) {
 				case 0:
+					Logger.log(LogLevel.DEBUG, "Received message from EQ-CanPerformStep");
 					if (message.getPerformative() == ACLMessage.CONFIRM) 
 					{
 						ACLMessage newMessage = new ACLMessage(
@@ -100,8 +102,9 @@ public class SubInformerBehaviour extends agents.shared_behaviours.ReceiveBehavi
 						newMessage.addUserDefinedParameter("message-id", new UID().toString());
 						Logger.logAclMessage(newMessage, 's');
 						myAgent.send(newMessage);
+						Logger.log(LogLevel.DEBUG, "Sending message to EQ-getproductionduration: " + super.getTimeout());
 						_currentState++;
-					} 
+					}
 					else 
 					{
 						Logger.log(LogLevel.ERROR, "Received something different than Confirm.");
@@ -126,6 +129,7 @@ public class SubInformerBehaviour extends agents.shared_behaviours.ReceiveBehavi
 				}
 			} else {
 				Logger.log(LogLevel.ERROR, "Message can't be null!");
+				Logger.log(LogLevel.DEBUG, "Timeout: " + super.getTimeout());
 				_parentBehaviour.callbackSubInformerBehaviour(BehaviourStatus.ERROR, this);
 			}
 		} catch (IOException | UnreadableException e) {

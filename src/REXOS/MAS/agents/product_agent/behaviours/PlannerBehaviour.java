@@ -49,6 +49,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.time.StopWatch;
+
 import libraries.blackboard_client.BlackboardClient;
 import libraries.blackboard_client.GeneralMongoException;
 import libraries.blackboard_client.InvalidDBNamespaceException;
@@ -122,11 +124,15 @@ public class PlannerBehaviour extends Behaviour {
 					// Get the type of production step, aka capability
 					long PA_capability = prodStep.getCapability();
 					// Create the select query for the blackboard
+					StopWatch st1 = new StopWatch();
+					st1.start();
 					DBObject equipletCapabilityQuery = QueryBuilder
 							.start("capabilities").is(PA_capability).get();
 					List<DBObject> equipletDirectory = bbc
 							.findDocuments(equipletCapabilityQuery);
-					Logger.log(LogLevel.DEBUG, "PAstep: " + PA_id);
+					st1.stop();
+					
+					Logger.log(LogLevel.DEBUG, "PAstep: " + PA_id + " - " + st1.getTime());
 					for (DBObject DBobj : equipletDirectory) {
 						DBObject aid = (DBObject) DBobj.get("db");
 						String name = aid.get("name").toString();

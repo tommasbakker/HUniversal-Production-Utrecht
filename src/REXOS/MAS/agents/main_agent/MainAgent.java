@@ -114,7 +114,8 @@ public class MainAgent extends Agent {
 			getContainerController().createNewAgent("EQ1", "agents.equiplet_agent.EquipletAgent", ar).start();
 			getContainerController().createNewAgent("EQ2", "agents.equiplet_agent.EquipletAgent", ar).start();
 			
-
+			//Below are testing variables
+			/*
 			ArrayList<ProductionStep> stepList = new ArrayList<>();
 
 			Production production = new Production(stepList);
@@ -128,16 +129,17 @@ public class MainAgent extends Agent {
 			pap.setCallback(callback);
 			pap.setProduct(product);
 
-			/**
-			 * We need to pass an Object[] to the createNewAgent. But we only
-			 * want to pass our product!
-			 */
+			
+			//  We need to pass an Object[] to the createNewAgent. But we only
+			//  want to pass our product!
+			 
 
 			Thread.sleep(1000);
 			Object[] args = new Object[1];
 			args[0] = pap;
 			
 			addBehaviour(new StartProductAgent(this, args));
+			*/
 		} catch(Exception e) {
 			e.printStackTrace();
 			doDelete();

@@ -121,7 +121,7 @@ public class Logger {
 	
 	
 	public static void logAclMessage(ACLMessage msg, char type) {
-    	if(testingEnabled) {
+    	if(testingEnabled && msg != null) {
     		String msgsFilePath = System.getenv(PATH_ENVIRONMENT_VARIABLE);
     		
     		java.util.Date date = new java.util.Date();
@@ -135,8 +135,11 @@ public class Logger {
 	    		if(!dir.exists()) {
 	    			dir.mkdirs();
 	    		}
-	    		
-	    		File file = new File(dir, msg.getConversationId() + ".log");
+	    		String filename = "null.log";
+	    		if ( msg.getConversationId() != null){
+	    			filename = msg.getConversationId() + ".log";
+	    		}
+	    		File file = new File(dir, filename);
 	    		if(!file.exists()) {
 					file.createNewFile();
 	    		}

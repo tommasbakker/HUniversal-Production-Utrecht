@@ -51,6 +51,8 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import libraries.utillities.log.LogLevel;
+import libraries.utillities.log.Logger;
 import agents.data.Callback;
 import agents.data.GUIMessage;
 
@@ -99,6 +101,7 @@ public class SocketBehaviour extends WakerBehaviour implements
 	 */
 	@Override
 	protected void onWake() {
+		Logger.log(LogLevel.DEBUG, "HEARTBEAT");
 		try {
 			if (!isConnected) {
 				connect();
