@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
 			return 0;
 		} else if (arg == "--blackboard") {
 			if (i + 1 < argc) {
-				blackboardIP = argv[i++];
+				blackboardIP = argv[++i];
 			} else {
 				std::cerr << "--blackboard requires one argument";
 				return -1;
@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
 		} else if (arg == "--id") {
 			if (i + 1 < argc) {
 				std::stringstream ss;
-				ss << argv[i++];
+				ss << argv[++i];
 				ss >> equipletID;
 			} else {
 				std::cerr << "--id requires one argument";
